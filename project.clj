@@ -7,7 +7,17 @@
                  [re-com "0.8.3"]
                  [secretary "1.2.3"]]
 
-  :plugins [[lein-cljsbuild "1.1.4"]]
+  :plugins [[lein-cljsbuild "1.1.4"]
+            [lein-scss "0.3.0"]]
+
+  :hooks [leiningen.scss]
+
+  :scss {:builds
+         {:develop    {:source-dir "scss/"
+                       :dest-dir   "resources/public/css/"
+                       :executable "sassc"
+                       :args       ["-m" "-I" "scss/" "-t" "nested"]}}}
+
 
   :min-lein-version "2.5.3"
 
@@ -23,8 +33,8 @@
    {:dependencies [[binaryage/devtools "0.8.2"]]
 
     :plugins      [[lein-figwheel "0.5.7"]
-                   [lein-doo "0.1.7"]]
-    }}
+                   [lein-doo "0.1.7"]]}}
+
 
   :cljsbuild
   {:builds
@@ -37,8 +47,8 @@
                     :asset-path           "js/compiled/out"
                     :source-map-timestamp true
                     :preloads             [devtools.preload]
-                    :external-config      {:devtools/config {:features-to-install :all}}
-                    }}
+                    :external-config      {:devtools/config {:features-to-install :all}}}}
+
 
     {:id           "min"
      :source-paths ["src/cljs"]
@@ -53,7 +63,7 @@
      :compiler     {:main          request-form.runner
                     :output-to     "resources/public/js/compiled/test.js"
                     :output-dir    "resources/public/js/compiled/test/out"
-                    :optimizations :none}}
-    ]}
+                    :optimizations :none}}]})
 
-  )
+
+
